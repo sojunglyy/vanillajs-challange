@@ -14,15 +14,16 @@ function saveTodo() {
 function deleteTodo(event) {
      const li = event.target.parentElement;
      li.remove();
-     todos = todos.filter((todo) => todo.id !== parseInt(li.id));
-     saveTodos();
+     todos = todos.filter(todo => todo.id !== parseInt(li.id));
+     saveTodo();
 }
 
 
 function paintTodo(newTodo) {
     const li = document.createElement("li");
+    li.id = newTodo.id;
     const span = document.createElement("span");
-    span.innerText = newTodo;
+    span.innerText = newTodo.text;
     const button  = document.createElement("button");
     button.innerText = "❌";
     button.addEventListener("click", deleteTodo);
@@ -40,8 +41,8 @@ function handleSubmitForm(event) {
         text: newTodo,
         id: Date.now(),
     };
-    todos.push(newTodo);
-    paintTodo(newTodo);
+    todos.push(newTodoObj);
+    paintTodo(newTodoObj);
     saveTodo();
 }
 
@@ -55,4 +56,6 @@ if (savedTodos){
     todos = parsedTodos;
     parsedTodos.forEach(paintTodo);
 }
+
+
 
